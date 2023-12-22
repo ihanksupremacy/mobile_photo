@@ -1,3 +1,4 @@
+// Import beberapa pustaka dan kelas yang diperlukan
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +10,19 @@ import 'package:mobile_photo/controllers/app_controller.dart';
 import 'package:mobile_photo/view/detail_view.dart';
 import 'package:mobile_photo/widget/app_bar.dart';
 
+// Deklarasi kelas HomeView yang merupakan StatelessWidget
 class HomeView extends StatelessWidget {
+  // Constructor HomeView
   HomeView({Key? key}) : super(key: key);
 
+  // Membuat instance dari AppController menggunakan Get.put
   final AppController homeController = Get.put(AppController());
 
+  // Metode build yang akan membangun antarmuka pengguna
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Scaffold sebagai kerangka dasar
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
@@ -76,6 +82,7 @@ class HomeView extends StatelessWidget {
                                     (context, index) {
                                   return GestureDetector(
                                     onTap: () {
+                                      // Navigasi ke halaman DetailView dengan indeks gambar yang dipilih
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: (ctx) =>
@@ -84,10 +91,12 @@ class HomeView extends StatelessWidget {
                                       );
                                     },
                                     child: Hero(
+                                      // Widget Hero untuk animasi transisi gambar
                                       tag: homeController.photos[index].id!,
                                       child: Container(
                                         margin: const EdgeInsets.all(2),
                                         child: CachedNetworkImage(
+                                          // Widget CachedNetworkImage untuk memuat dan menyimpan gambar dari URL
                                           imageUrl: homeController
                                               .photos[index].urls!['small']!,
                                           imageBuilder:
@@ -137,6 +146,7 @@ class HomeView extends StatelessWidget {
           return Obx(
             () => GestureDetector(
               onTap: () {
+                // Mengganti indeks terpilih dan memperbarui data berdasarkan urutan yang dipilih
                 homeController.selectedIndex.value = i;
                 homeController.ordersFunc(homeController.orders[i]);
               },
